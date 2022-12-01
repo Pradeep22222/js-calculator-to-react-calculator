@@ -1,8 +1,7 @@
 import React from "react";
 import { Button } from "./Button";
 
-export const ButtonArea = ({ clsNm, label }) => {
-
+export const ButtonArea = ({ clsNm, label, handleOnButtonClick }) => {
   const buttons = [
     {
       label: "AC",
@@ -88,15 +87,19 @@ export const ButtonArea = ({ clsNm, label }) => {
       label: "=",
       clsNm: "box box-equals",
     },
-    ];
-    
+  ];
 
   return (
     <>
-          {buttons.map((item, index) => {
-              return <Button key={index} clsNm={item.clsNm} label={item.label}></Button> 
-          }
-          )}
+      {buttons.map((item, index) => {
+        return (
+          <Button
+            key={index}
+            {...item}
+            handleOnButtonClick={handleOnButtonClick}
+          ></Button>
+        );
+      })}
     </>
-    );
+  );
 };

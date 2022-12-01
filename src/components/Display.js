@@ -1,9 +1,9 @@
 import React from 'react'
 
-export const Display = () => {
+export const Display = ({str}) => {
   return (
-    <div>
-      <div className="display">0.00</div>
-    </div>
+    <>
+          <div className="display">{ str || "0.00"}</div>
+    </>
   );
 }
