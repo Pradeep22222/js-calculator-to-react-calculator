@@ -2,11 +2,12 @@ import { useState } from "react";
 import "./App.css";
 import { ButtonArea } from "./components/ButtonArea";
 import { Display } from "./components/Display";
- 
-const operators=["+", "-", "*","/","%"]
+
+const operators = ["+", "-", "*", "/", "%"];
 
 function App() {
   const [str, setStr] = useState("");
+  const [lastOperator, setLastOperator] = useState("");
   const handleOnButtonClick = (value) => {
     // what we should do when sepcific button is clicked
     if (value === "AC") {
@@ -15,7 +16,6 @@ function App() {
     }
     if (value === "=") {
       return onTotal();
-      
     }
 
     if (value === "C") {
@@ -24,6 +24,7 @@ function App() {
       return;
     }
     if (operators.includes(value)) {
+      setLastOperator(value);
       const lastChar = str.slice(-1);
       if (operators.includes(lastChar)) {
         // replace the last operator with the new one
@@ -31,6 +32,20 @@ function App() {
         setStr(strWithOutLastChar + value);
         return;
       }
+    }
+    if (value === ".") {
+      
+      if (lastOperator) {
+        const positionOfLastOperator = str.lastIndexOf(lastOperator);
+        const beforLastOperator = str.slice(0, positionOfLastOperator + 1);
+        const afterLastOperator = str.slice(positionOfLastOperator + 1)
+        if (afterLastOperator.includes(".")) {
+          return;
+        }      
+      } else{if (str.includes(".")) {
+        return;
+      }}
+      
     }
     setStr(str + value);
   };
